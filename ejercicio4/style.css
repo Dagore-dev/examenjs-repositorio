@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+form {
+  width: 50%;
+  min-width: 350px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+label,
+input,
+textarea{
+  margin-top: 1rem;
+}
+
+.date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
