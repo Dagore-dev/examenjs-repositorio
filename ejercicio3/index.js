@@ -1,4 +1,4 @@
-//En este ejercicio se emplea el patrón factoria para los diferentes objetos:
+// En este ejercicio se emplea el patrón factoria para los diferentes objetos:
 
 function createEmpleado (nombre = '', departamento = 'General') {
   return {
