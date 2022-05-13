@@ -1,56 +1,67 @@
 const valores = [true, 5, false, 'hola', 'adios', 2, true]
-let actual
-const length = 0
-let maxLengthIndex = 'No hay cadenas de texto'
-let suma = 0
-let resta = 0
-let cuenta = 0
-let media = 0
-let maximo = Number.MIN_VALUE
-let minimo = Number.MAX_VALUE
-const booleans = []
 const $RESULTADO = document.getElementById('result')
 
-for (let i = 0; i < valores.length; i++) {
-  actual = valores[i]
+function arrayReport (valores) {
+  const initialValue = {
+    length: 0,
+    maxLengthIndex: 'No hay cadenas de texto',
+    sum: 0,
+    substract: 0,
+    count: 0,
+    max: Number.MIN_VALUE,
+    min: Number.MAX_VALUE,
+    and: true,
+    or: false
+  }
 
-  switch (typeof actual) {
+  const report = valores.reduce(reducer, initialValue)
+  report.mean = report.sum / report.count
+
+  return report
+}
+
+function reducer (accumulated, current, i) {
+  switch (typeof current) {
     case 'string':
-      if (actual.length >= length) maxLengthIndex = i
+      if (current.length >= accumulated.length) accumulated.maxLengthIndex = i
       break
     case 'number':
-      cuenta++
-      suma += actual
-      resta -= actual
-      if (actual > maximo) maximo = actual
-      if (actual < minimo) minimo = actual
+      accumulated.count++
+      accumulated.sum += current
+      accumulated.substract -= current
+      if (current > accumulated.max) accumulated.max = current
+      if (current < accumulated.min) accumulated.min = current
       break
     case 'boolean':
-      booleans.push(actual)
+      accumulated.and = accumulated.and && current
+      accumulated.or = accumulated.or || current
       break
     default:
       break
   }
+
+  return accumulated
 }
 
-media = suma / cuenta
-const and = booleans.reduce((previous, current) => previous && current, true)
-const or = booleans.reduce((previous, current) => previous || current, false)
-
-$RESULTADO.innerText = `
+function printIn (valores, { maxLengthIndex, sum, substract, mean, max, min, and, or }, $RESULTADO) {
+  $RESULTADO.innerText = `
   ${valores}
 
   String más largo: '${valores[maxLengthIndex]}',
-  Suma: ${suma},
-  Resta: ${resta},
-  Media: ${media},
-  Máximo: ${maximo},
-  Mínimo: ${minimo},
+  Suma: ${sum},
+  Resta: ${substract},
+  Media: ${mean},
+  Máximo: ${max},
+  Mínimo: ${min},
   Operador AND: ${and},
   Operador OR: ${or}
 
   En la consola está el array mutado con las opciones que se solicitan.
 `
+}
+
+const result = arrayReport(valores)
+printIn(valores, result, $RESULTADO)
 
 // Para agregar o eliminar un elemento del array funcionando como una cola se usan los métodos shift() para eliminar el primer elemento (desencola) y unshift(nuevoElemento) para añadir un nuevo elemento al principio del array (encola)
 
