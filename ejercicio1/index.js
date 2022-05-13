@@ -4,6 +4,10 @@ const $NUMBER2 = document.getElementById('n2')
 const $OPERATION = document.getElementById('operation')
 const $RESULT = document.getElementById('result')
 
+/**
+ *
+ * @param {Event} e
+ */
 function handleSubmit (e) {
   e.preventDefault()
 
@@ -35,7 +39,7 @@ function handleSubmit (e) {
     window.alert('Falta algún valor por definir')
   }
 
-  $RESULT.innerText = result
+  $RESULT.innerText = result.toString()
 }
 
 $FORM.addEventListener('submit', handleSubmit)
