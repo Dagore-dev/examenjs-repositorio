@@ -1,6 +1,25 @@
 const valores = [true, 5, false, 'hola', 'adios', 2, true]
 const $RESULTADO = document.getElementById('result')
 
+/**
+ * Report type definition.
+ * @typedef {Object} Report
+ * @property {number} length
+ * @property {number} maxLengthIndex
+ * @property {number} mean
+ * @property {number} count
+ * @property {number} sum
+ * @property {number} substract
+ * @property {number} max
+ * @property {number} min
+ * @property {boolean} and
+ * @property {boolean} or
+ */
+/**
+ * Generate a report about the array in params.
+ * @param {any[]} valores
+ * @returns {Report}
+ */
 function arrayReport (valores) {
   const initialValue = {
     length: 0,
@@ -20,6 +39,12 @@ function arrayReport (valores) {
   return report
 }
 
+/**
+ * Reducer for reduce method call in arrayReport function.
+ * @param {Report} accumulated
+ * @param {string | number | any[]} current
+ * @param {any} i
+ */
 function reducer (accumulated, current, i) {
   switch (typeof current) {
     case 'string':
@@ -43,6 +68,12 @@ function reducer (accumulated, current, i) {
   return accumulated
 }
 
+/**
+ * Fill the innerText property of given HTMLElement with the content of generated Report.
+ * @param {any[]} valores
+ * @param {Report} report
+ * @param {HTMLElement} $RESULTADO
+ */
 function printIn (valores, { maxLengthIndex, sum, substract, mean, max, min, and, or }, $RESULTADO) {
   $RESULTADO.innerText = `
   ${valores}
