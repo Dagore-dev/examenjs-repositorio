@@ -37,6 +37,7 @@ function handleSubmit (e) {
  * @param {String} email
  * @param {String} web
  * @param {String} passwd
+ * @returns {object}
  */
 function createObject (dni, name, date, email, web, passwd) {
   return {
